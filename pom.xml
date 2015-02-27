@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>activemq-deb</groupId>
+    <artifactId>activemq-deb</artifactId>
+    <version>5.10.2</version>
+
+    <dependencies>
+
+    </dependencies>
+
+    <properties>
+
+        <!-- https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-beta3.tar.gz -->
+
+        <package.fullversion>activemq-5.10.2</package.fullversion>
+        <package.installdir>/usr/share/activemq</package.installdir>
+
+        <targz.filename>apache-activemq-5.10.2-spinn3r-2-bin.tar.gz</targz.filename>
+        <targz.dir>apache-activemq-5.10.2-spinn3r-2</targz.dir>
+
+    </properties>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+
+                <artifactId>jdeb</artifactId>
+                <groupId>org.vafer</groupId>
+                <version>1.1.1</version>
+                <executions>
+                    <execution>
+
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jdeb</goal>
+                        </goals>
+
+                        <configuration>
+                            <verbose>true</verbose>
+                            <snapshotExpand>true</snapshotExpand>
+                            <!-- expand "SNAPSHOT" to what is in the "USER" env variable -->
+                            <snapshotEnv>USER</snapshotEnv>
+                            <verbose>true</verbose>
+                            <controlDir>${basedir}/src/main/deb/control</controlDir>
+
+                            <dataSet>
+
+                                <data>
+
+                                    <src>${basedir}/src/main/init.d/</src>
+                                    <type>directory</type>
+                                    <includes>**</includes>
+
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc/init.d</prefix>
+                                        <filemode>755</filemode>
+                                    </mapper>
+
+                                </data>
+
+                                <data>
+
+                                    <src>${targz.filename}</src>
+                                    <type>archive</type>
+                                    <includes>**</includes>
+                                    <excludes>${targz.dir}/bin/**</excludes>
+
+                                    <mapper>
+                                        <type>perm</type>
+                                        <strip>1</strip>
+                                        <prefix>${package.installdir}</prefix>
+                                        <filemode>644</filemode>
+                                    </mapper>
+
+                                </data>
+
+                                <data>
+
+                                    <src>${targz.filename}</src>
+                                    <type>archive</type>
+                                    <includes>${targz.dir}/bin/**</includes>
+
+                                    <mapper>
+                                        <type>perm</type>
+                                        <strip>1</strip>
+                                        <prefix>${package.installdir}</prefix>
+                                        <filemode>755</filemode>
+                                    </mapper>
+
+                                </data>
+
+                            </dataSet>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+</project>

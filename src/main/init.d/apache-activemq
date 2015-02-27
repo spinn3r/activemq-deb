@@ -1,0 +1,38 @@
+#!/bin/bash
+
+OPTIONS="-Dactivemq.data=/var/lib/apache-activemq -Dactivemq.brokerName=$HOSTNAME"
+
+start() {
+
+    nohup /usr/share/apache-activemq/bin/activemq $OPTIONS start &
+
+}
+
+stop() {
+
+    nohup /usr/share/apache-activemq/bin/activemq $OPTIONS stop
+
+}
+
+restart() {
+
+    nohup /usr/share/apache-activemq/bin/activemq $OPTIONS restart
+
+}
+
+case $1 in
+
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+
+esac
