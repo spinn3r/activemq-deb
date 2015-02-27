@@ -7,7 +7,7 @@
 
     <groupId>apache-activemq</groupId>
     <artifactId>apache-activemq</artifactId>
-    <version>5.10.2</version>
+    <version>5.10.2-spinn3r-3</version>
 
     <dependencies>
 
@@ -18,7 +18,7 @@
         <!-- https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-beta3.tar.gz -->
 
         <package.fullversion>activemq-5.10.2</package.fullversion>
-        <package.installdir>/usr/share/activemq</package.installdir>
+        <package.installdir>/usr/share/apache-activemq</package.installdir>
 
         <targz.filename>apache-activemq-5.10.2-spinn3r-2-bin.tar.gz</targz.filename>
         <targz.dir>apache-activemq-5.10.2-spinn3r-2</targz.dir>
