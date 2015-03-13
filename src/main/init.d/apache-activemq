@@ -10,7 +10,7 @@ start() {
 
 stop() {
 
-    nohup /usr/share/apache-activemq/bin/activemq $OPTIONS stop
+    /usr/share/apache-activemq/bin/activemq $OPTIONS stop
 
 }
 
