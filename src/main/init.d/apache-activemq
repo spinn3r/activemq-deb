@@ -2,9 +2,12 @@
 
 OPTIONS="-Dactivemq.data=/var/lib/apache-activemq -Dactivemq.brokerName=$HOSTNAME"
 
+export STDOUT_DEST="/var/log/apache-activemq/apache-activemq.out"
+export STDERR_DEST="/var/log/apache-activemq/apache-activemq.err"
+
 start() {
 
-    nohup /usr/share/apache-activemq/bin/activemq $OPTIONS start &
+    nohup /usr/share/apache-activemq/bin/activemq $OPTIONS start > $STDOUT_DEST 2> $STDERR_DEST &
 
 }
 
@@ -16,7 +19,8 @@ stop() {
 
 restart() {
 
-    nohup /usr/share/apache-activemq/bin/activemq $OPTIONS restart
+    stop
+    start
 
 }
 
