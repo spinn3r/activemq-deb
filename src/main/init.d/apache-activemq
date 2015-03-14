@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPTIONS="-Dactivemq.data=/var/lib/apache-activemq -Dactivemq.brokerName=$HOSTNAME"
+OPTIONS="-Dactivemq.data=/var/lib/apache-activemq -Dactivemq.brokerName=$HOSTNAME -Dsun.rmi.transport.tcp.responseTimeout=60000"
 
 export STDOUT_DEST="/var/log/apache-activemq/apache-activemq.out"
 export STDERR_DEST="/var/log/apache-activemq/apache-activemq.err"
@@ -9,11 +9,17 @@ start() {
 
     nohup /usr/share/apache-activemq/bin/activemq $OPTIONS start > $STDOUT_DEST 2> $STDERR_DEST &
 
+    ## TODO: add wait-for-port 61616 here so that we can verify that ActiveMQ
+    # was running.
+
 }
 
 stop() {
 
+    # attempt a graceful shutdown.
     /usr/share/apache-activemq/bin/activemq $OPTIONS stop
+
+    # TODO: kill -9 the daemon at this point if the above command fails.
 
 }
 
