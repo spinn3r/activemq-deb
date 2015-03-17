@@ -7,17 +7,22 @@ export STDERR_DEST="/var/log/apache-activemq/apache-activemq.err"
 
 start() {
 
-    nohup /usr/share/apache-activemq/bin/activemq $OPTIONS start > $STDOUT_DEST 2> $STDERR_DEST &
+    nohup /usr/share/apache-activemq/bin/activemq ${OPTIONS} start > ${STDOUT_DEST} 2> ${STDERR_DEST} &
 
     ## TODO: add wait-for-port 61616 here so that we can verify that ActiveMQ
     # was running.
+
+    wait-for-port --port=61616
 
 }
 
 stop() {
 
     # attempt a graceful shutdown.
-    /usr/share/apache-activemq/bin/activemq $OPTIONS stop
+
+    echo "Stopping ActiveMQ with JMX options: ${OPTIONS}"
+
+    /usr/share/apache-activemq/bin/activemq ${OPTIONS} stop
 
     # TODO: kill -9 the daemon at this point if the above command fails.
 
