@@ -71,7 +71,7 @@
                                     <src>${targz.filename}</src>
                                     <type>archive</type>
                                     <includes>**</includes>
-                                    <excludes>${targz.dir}/bin/**</excludes>
+                                    <excludes>${targz.dir}/bin/**,${targz.dir}/lib/pax-url-aether-1.5.2.jar</excludes>
 
                                     <mapper>
                                         <type>perm</type>
