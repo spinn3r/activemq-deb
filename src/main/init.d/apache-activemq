@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPTIONS="-Dactivemq.data=/var/lib/apache-activemq -Dactivemq.brokerName=$HOSTNAME -Dsun.rmi.transport.tcp.responseTimeout=60000"
+OPTIONS="-Dactivemq.data=/var/lib/apache-activemq -Dactivemq.brokerName=$HOSTNAME -Dsun.rmi.transport.tcp.responseTimeout=180000"
 
 export STDOUT_DEST="/var/log/apache-activemq/apache-activemq.out"
 export STDERR_DEST="/var/log/apache-activemq/apache-activemq.err"
